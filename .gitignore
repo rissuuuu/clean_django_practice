@@ -1,8 +1,13 @@
 *.pyc
-static/
-static/
 project/project/__pycache__/*.pyc
 logs/
 db.sqlite3
 _postgres_data/
 _redis_data/
+static/
+redis/
+_redis_data/
+sock/
+.idea
+logs/
+.idea/
