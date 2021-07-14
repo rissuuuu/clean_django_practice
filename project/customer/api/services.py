@@ -38,3 +38,4 @@ def register_customer(
     )
     customer.save()
     return customer
+
