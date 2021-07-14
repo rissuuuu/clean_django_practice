@@ -1,9 +1,13 @@
-import logging
 from django.db import transaction
 from rest_framework.decorators import action
 from rest_framework import viewsets
 from rest_framework.response import Response
-from customer.api.services import create_user, register_customer
+from customer.api.services import (
+    create_user,
+    register_customer,
+    create_residential_customer,
+    create_residential_customer,
+)
 
 
 class CreateCustomerViewSet(viewsets.ViewSet):
@@ -28,19 +32,12 @@ class CreateCustomerViewSet(viewsets.ViewSet):
             customer_kind=req.get("customer_kind"),
             picture=req.get("picture"),
         )
-        # return Response(customer.to_json())
         if req.get("customer_kind") == "commercial":
             create_commercial_customer(
-                proprieter_name = req.get("proprieter_name"),
-                customer_id = req.get("customer_id")
+                proprieter_name=req.get("proprieter_name"), customer=customer
             )
         if req.get("customer_kind") == "residental":
             create_residential_customer(
-                customer_id = customer,
-                kind = req.get("residential_type")
+                customer=customer, residential_type=req.get("residential_type")
             )
-
-
-
-
-
+        return Response(customer.to_json())

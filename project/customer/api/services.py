@@ -1,5 +1,5 @@
 from user.models import User
-from customer.models import Customer
+from customer.models import Customer, Commercial, Residential
 
 
 def create_user(
@@ -39,3 +39,18 @@ def register_customer(
     customer.save()
     return customer
 
+
+def create_commercial_customer(proprieter_name: str, customer: Customer) -> Commercial:
+    commercial = Commercial.objects.create(
+        proprieter_name=proprieter_name, customer_id=customer
+    )
+    commercial.save()
+
+
+def create_residential_customer(
+    customer: Customer, residential_type: str
+) -> Residential:
+    residential = Residential.objects.create(
+        customer_id=customer, kind=residential_type
+    )
+    residential.save()
