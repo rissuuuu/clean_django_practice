@@ -2,13 +2,10 @@ from user.models import User
 from customer.models import Customer, Commercial, Residential
 
 
-def create_user(
-    first_name: str, last_name: str, username: str, email: str, password: str
-) -> User:
+def create_user(first_name: str, last_name: str, email: str, password: str) -> User:
     user = User.objects.create(
         first_name=first_name,
         last_name=last_name,
-        username=username,
         email=email,
     )
     user.set_password(password)

@@ -2,23 +2,34 @@ from django.db import transaction
 from rest_framework.decorators import action
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework_simplejwt.views import TokenObtainPairView
 from customer.api.services import (
     create_user,
     register_customer,
-    create_residential_customer,
+    create_commercial_customer,
     create_residential_customer,
 )
 
 
-class CreateCustomerViewSet(viewsets.ViewSet):
+from customer.api.serializers import NOCTokenObtainPairSerializer
+from customer.models import Customer
+
+
+class NOCTokenObtainPairView(TokenObtainPairView):
+    serializer_class = NOCTokenObtainPairSerializer
+
+
+class CustomerViewSet(viewsets.ViewSet):
     @action(["POST"], detail=False)
     @transaction.atomic
+    @authentication_classes([])
+    @permission_classes([])
     def register_customer(self, request):
         req = request.data
         user = create_user(
             first_name=req.get("first_name"),
             last_name=req.get("last_name"),
-            username=req.get("username"),
             email=req.get("email"),
             password=req.get("password"),
         )
@@ -40,4 +51,9 @@ class CreateCustomerViewSet(viewsets.ViewSet):
             create_residential_customer(
                 customer=customer, residential_type=req.get("residential_type")
             )
+        return Response(customer.to_json())
+
+    @action(["GET"], detail=True)
+    def get_customer(self, request):
+        customer = Customer.objects.get(user_id=request.user)
         return Response(customer.to_json())
