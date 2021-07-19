@@ -28,7 +28,7 @@ SECRET_KEY = "-3_jmtb7a7%d^^4w*+^v0ctag*y)c_umv(8iurhuff1-j2wqv0"
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "localhost",
+    "*",
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -96,8 +96,8 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
 }
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=2),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,
     "ALGORITHM": "HS256",
@@ -118,10 +118,10 @@ SIMPLE_JWT = {
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("POSTGRES_DB", os.path.join(BASE_DIR, "db.sqlite3")),
-        "USER": os.environ.get("POSTGRES_USER", "user"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "password"),
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.postgresql"),
+        "NAME": os.environ.get("POSTGRES_DB", "django"),
+        "USER": os.environ.get("POSTGRES_USER", "admin"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "localhost"),
         "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
         "PORT": os.environ.get("POSTGRES_PORT", "5432"),
     }
