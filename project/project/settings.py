@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "user.apps.UserConfig",
     "customer.apps.CustomerConfig",
     "location.apps.LocationConfig",
+    "bottler.apps.BottlerConfig",
+    "dealer.apps.DealerConfig",
     "rest_framework",
     "rest_framework.authtoken",
 ]

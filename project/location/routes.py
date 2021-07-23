@@ -1,7 +1,7 @@
 from rest_framework import routers
 from location.api.viewsets import ProvinceViewSet,DistrictViewSet
 
-router = routers.SimpleRouter()
+router = routers.DefaultRouter()
 
 
 router.register("province",ProvinceViewSet)

@@ -22,7 +22,6 @@ class NOCTokenObtainPairView(TokenObtainPairView):
 
 
 class CreateCustomerViewSet(viewsets.ViewSet):
-
     permission_classes = []
     authentication_classes = []
 

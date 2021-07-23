@@ -7,5 +7,6 @@ urlpatterns = [
     path('api/admin/', admin.site.urls),
     url(r"^api/v1/",include('customer.routes')),
     url(r"^api/v1/",include('user.routes')),
-    url(r"^api/v1/",include('location.routes'))
+    url(r"^api/v1/",include('location.routes')),
+    url(r"^api/v1/",include('bottler.routes')),
 ]
