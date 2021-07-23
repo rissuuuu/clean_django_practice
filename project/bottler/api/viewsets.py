@@ -8,7 +8,7 @@ from bottler.api.serializers import (
     UserBrandSerializer,
 )
 from bottler.models import Bottler, Brand, UserBrand, DealerBrand
-from project.permissions.permissions import AllowAdmin
+from project.permissions.permissions import AllowAdmin, AllowDealer, AllowCustomer
 
 
 class BottlerViewSet(viewsets.ModelViewSet):
@@ -40,14 +40,14 @@ class BrandViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action == "retrieve" or self.action == "list":
-            return super(BottlerViewSet, self).get_permissions()
+            return super(BrandViewSet, self).get_permissions()
         if self.action == "create" or self.action == "update":
             return [AllowAdmin()]
 
 
 class UserBrandViewSet(viewsets.ModelViewSet):
-    queryset = Bottler.objects.all()
-    serializer_class = BottlerSerializer
+    queryset = UserBrand.objects.all()
+    serializer_class = UserBrandSerializer
     authentication_classes = [
         JWTAuthentication,
     ]
@@ -57,14 +57,14 @@ class UserBrandViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action == "retrieve" or self.action == "list":
-            return super(BottlerViewSet, self).get_permissions()
+            return super(UserBrandViewSet, self).get_permissions()
         if self.action == "create" or self.action == "update":
-            return [AllowAdmin()]
+            return [AllowCustomer(),AllowAdmin()]
 
 
 class DealerBrandViewSet(viewsets.ModelViewSet):
-    queryset = Bottler.objects.all()
-    serializer_class = BottlerSerializer
+    queryset = DealerBrand.objects.all()
+    serializer_class = DealerBrandSerializer
     authentication_classes = [
         JWTAuthentication,
     ]
@@ -74,6 +74,6 @@ class DealerBrandViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action == "retrieve" or self.action == "list":
-            return super(BottlerViewSet, self).get_permissions()
+            return super(DealerBrandViewSet, self).get_permissions()
         if self.action == "create" or self.action == "update":
-            return [AllowAdmin()]
+            return [AllowDealer(),AllowAdmin()]
