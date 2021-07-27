@@ -18,7 +18,12 @@ class UserBrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserBrand
         fields = '__all__'
-
+        read_only_fields = ['user_id']
+    
+    def create(self,validated_data):
+        request = self.context['request']
+        return UserBrand.objects.create(user_id=request.user,**validated_data)
+        
 
 class DealerBrandSerializer(serializers.ModelSerializer):
     class Meta:

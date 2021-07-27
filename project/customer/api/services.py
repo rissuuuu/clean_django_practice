@@ -7,6 +7,7 @@ def create_user(first_name: str, last_name: str, email: str, password: str) -> U
         first_name=first_name,
         last_name=last_name,
         email=email,
+        is_customer=True
     )
     user.set_password(password)
     user.save()
