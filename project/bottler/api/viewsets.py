@@ -59,7 +59,13 @@ class UserBrandViewSet(viewsets.ModelViewSet):
         if self.action == "retrieve" or self.action == "list":
             return super(UserBrandViewSet, self).get_permissions()
         if self.action == "create" or self.action == "update":
-            return [AllowCustomer(),AllowAdmin()]
+            return [AllowCustomer()]
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return UserBrand.objects.all()
+        elif self.request.user.is_customer:
+            return UserBrand.objects.filter(user_id=self.request.user)
 
 
 class DealerBrandViewSet(viewsets.ModelViewSet):
@@ -76,4 +82,10 @@ class DealerBrandViewSet(viewsets.ModelViewSet):
         if self.action == "retrieve" or self.action == "list":
             return super(DealerBrandViewSet, self).get_permissions()
         if self.action == "create" or self.action == "update":
-            return [AllowDealer(),AllowAdmin()]
+            return [AllowDealer()]
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return DealerBrand.objects.all()
+        elif self.request.user.is_dealer:
+            return DealerBrand.objects.filter(dealer_id=self.request.user.dealer)

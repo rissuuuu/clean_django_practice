@@ -1,6 +1,5 @@
 from django.urls import path
 from customer.api import viewsets
-from django.conf.urls import url
 
 
 urlpatterns = [

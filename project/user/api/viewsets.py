@@ -1,7 +1,7 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 
-from customer.api.serializers import NOCTokenObtainPairSerializer
+from user.api.serializers import NOCTokenObtainPairSerializer
 
 
 class NOCTokenObtainPairView(TokenObtainPairView):

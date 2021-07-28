@@ -4,7 +4,7 @@ from dealer.models import Dealer
 
 
 class Bottler(models.Model):
-    bottler_name = models.CharField(max_length=50)
+    bottler_name = models.CharField(max_length=50,unique=True)
     address = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -12,7 +12,7 @@ class Bottler(models.Model):
 
 class Brand(models.Model):
     brand_code = models.CharField(max_length=50)
-    brand_name = models.CharField(max_length=50)
+    brand_name = models.CharField(max_length=50,unique=True)
     bottler_id = models.ForeignKey(Bottler, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
