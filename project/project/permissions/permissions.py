@@ -8,9 +8,9 @@ class AllowAdmin(BasePermission):
 
 class AllowCustomer(BasePermission):
     def has_permission(self, request, view):
-        return bool(request.user and request.user.is_customer)
+        return bool(request.user and request.user.customer)
 
 
 class AllowDealer(BasePermission):
     def has_permission(self, request, view):
-        return bool(request.user and request.user.is_dealer)
+        return bool(request.user and request.user.dealer)
